@@ -78,6 +78,7 @@ ACTION_IF (valid_dir = 1) BEGIN
 END
 
 OUTER_SET first_prompt = 0
+OUTER_SET valid_dir = 1
 OUTER_WHILE (valid_dir = 0) BEGIN
 	ACTION_IF (first_prompt = 0) BEGIN
 		PRINT ~~
