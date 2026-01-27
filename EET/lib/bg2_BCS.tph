@@ -3671,15 +3671,35 @@ END~
 			PATCH_WARN ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
 		END
 	END
+  DECOMPILE_AND_PATCH BEGIN
+		SPRINT textToReplace ~HasDLC("Neera")~
+		COUNT_REGEXP_INSTANCES ~%textToReplace%~ num_matches
+		PATCH_IF (num_matches > 0) BEGIN
+			REPLACE_TEXTUALLY ~%textToReplace%~ ~HasDLC("Neera")
+			InMyArea("NEERA")
+			!StateCheck("NEERA",CD_STATE_NOTVALID)~
+			PATCH_PRINT ~Patching: %num_matches% matches found in %SOURCE_FILESPEC% for REPLACE_TEXTUALLY: %textToReplace%~
+		END ELSE BEGIN
+			PATCH_WARN ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
+		END
+	END
 BUT_ONLY
 
-<<<<<<<< .../AR0500-et.baf
+<<<<<<<< .../OHNMCUT1-et.baf
 IF
-  Global("OHN_INTRO_SCENE","AR0500",2)
+  Global("OHN_INTRO_SCENE","AR0500",1)
   Global("K#NeeraImport","AR0500",0)
   BeenInParty("Neera")
   GlobalLT("chapter","GLOBAL",20)
   !StateCheck("Neera",STATE_REALLY_DEAD)
+  HasDLC("Neera")
+  !Detect([PC])
+  !Range(Player1,40)
+  !Range(Player2,40)
+  !Range(Player3,40)
+  !Range(Player4,40)
+  !Range(Player5,40)
+  !Range(Player6,40)
 THEN
   RESPONSE #100
     ActionOverride("Neera",SetDialog("NEERA"))
@@ -3784,11 +3804,19 @@ THEN
 END
 
 IF
-  Global("OHN_INTRO_SCENE","AR0500",2)
+  Global("OHN_INTRO_SCENE","AR0500",1)
   Global("K#NeeraImport","AR0500",0)
   !BeenInParty("Neera")
   GlobalLT("chapter","GLOBAL",20)
   !StateCheck("Neera",STATE_REALLY_DEAD)
+  HasDLC("Neera")
+  !Detect([PC])
+  !Range(Player1,40)
+  !Range(Player2,40)
+  !Range(Player3,40)
+  !Range(Player4,40)
+  !Range(Player5,40)
+  !Range(Player6,40)
   //XPLT(Player1,250000)
 THEN
   RESPONSE #100
@@ -3862,7 +3890,7 @@ THEN
 END*/
 >>>>>>>>
 
-EXTEND_TOP ~AR0500.BCS~ ~.../AR0500-et.baf~
+EXTEND_TOP ~OHNMCUT1.BCS~ ~.../OHNMCUT1-et.baf~
 
 COPY_EXISTING ~OHNCUT1A.BCS~ ~override~
 	DECOMPILE_AND_PATCH BEGIN
